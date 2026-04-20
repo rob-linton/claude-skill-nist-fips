@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.tox/
+.venv/
+venv/
+env/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Build artefacts
+build/
+dist/
+*.tar.gz
+*.tar.gz.sig
+*.tar.gz.cert
+
+# Local OSCAL cache
+tools/.oscal-cache/
+
+# Test output
+tests/.pytest_cache/
+tests/output/
+
+# Generated data that is reproducible from tools/build-data.py
+# (data/ IS checked in — generated artefacts are the authoritative release
+# artefact; this policy enforces that builds are reproducible from source
+# but the committed data is what ships.)

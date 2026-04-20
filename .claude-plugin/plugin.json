@@ -1,0 +1,80 @@
+{
+  "$schema": "https://claude.com/plugins/plugin.schema.json",
+  "name": "NistFipsCompliance",
+  "version": "0.1.0",
+  "description": "Production-minded Claude Code skill for NIST SP 800-53 Rev 5 control mapping and FIPS 140-3 cryptographic compliance. Ships the full 800-53 catalogue as ambient context and enforces a FIPS-approved algorithm allow-list. Apache 2.0. Individual-maintainer, non-endorsed, draft-only outputs.",
+  "author": {
+    "name": "Rob Linton",
+    "email": "rob.linton@senetas.com",
+    "url": "https://github.com/rlinton"
+  },
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rlinton/claude-skill-nist-fips"
+  },
+  "homepage": "https://github.com/rlinton/claude-skill-nist-fips",
+  "bugs": "https://github.com/rlinton/claude-skill-nist-fips/issues",
+  "keywords": [
+    "nist",
+    "800-53",
+    "fips",
+    "140-3",
+    "fedramp",
+    "cmmc",
+    "hipaa",
+    "soc2",
+    "compliance",
+    "cryptography",
+    "security",
+    "audit",
+    "ssp",
+    "poam",
+    "cmvp"
+  ],
+  "skill": {
+    "path": "skill/NistFipsCompliance",
+    "entry": "SKILL.md",
+    "context_files": [
+      "context/NistControlCatalogue.md",
+      "context/FipsAlgorithms.md",
+      "context/FipsLibraries.md",
+      "context/EvidenceModel.md",
+      "context/ThreatModel.md"
+    ],
+    "workflows": [
+      "workflows/MapFeatureToControls.md",
+      "workflows/AuditFipsCompliance.md"
+    ],
+    "commands": [
+      "commands/nist-scan.md",
+      "commands/fips-audit.md"
+    ],
+    "agents": [
+      "agents/fips-crypto-reviewer.md"
+    ],
+    "data": [
+      "data/nist-800-53-rev5.json",
+      "data/fips-algorithms.json",
+      "data/fips-libraries.json",
+      "data/framework-crossmap.json",
+      "data/_meta.json"
+    ]
+  },
+  "features": {
+    "ssp_generation": {
+      "enabled": false,
+      "reason": "SSP/POAM generation lands in v0.4 with non-bypassable watermarking. Disabled in v0.1 by design."
+    }
+  },
+  "requirements": {
+    "claude_code_min_version": "0.20.0",
+    "platforms": ["darwin-arm64", "darwin-amd64", "linux-amd64", "linux-arm64", "windows-amd64"]
+  },
+  "legal_notice": "This skill is an independent, unaffiliated, individual-maintainer project. Not produced, endorsed, validated, or certified by NIST, the CMVP, the FedRAMP PMO, GSA, the DoD CIO, HHS/OCR, AICPA, or Anthropic PBC. Does not confer FIPS validation. Does not replace a human audit. See README.md for the full notice.",
+  "release_verification": {
+    "signing_method": "sigstore+gpg",
+    "signing_identity": "rob.linton@senetas.com",
+    "release_sha256_manifest": "tools/RELEASES.sha256"
+  }
+}

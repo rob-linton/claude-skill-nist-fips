@@ -1,0 +1,117 @@
+{
+  "$schema": "../../../tools/schemas/fips-libraries.schema.json",
+  "source": {
+    "name": "Hand-curated from CMVP Validated Modules List",
+    "url": "https://csrc.nist.gov/projects/cryptographic-module-validation-program/validated-modules",
+    "last_reviewed": "2026-04-20"
+  },
+  "notice": "CMVP certificate numbers and status change over time. The 'verified_on' field records when the maintainer last confirmed the cert was Active. Re-verify before citing in any compliance deliverable. Active status can shift to Historical or Revoked at any time.",
+  "libraries": [
+    {
+      "language": "rust",
+      "library": "aws-lc-rs",
+      "repo": "https://github.com/aws/aws-lc-rs",
+      "role": "primary-crypto-primitives",
+      "cmvp_certificate": "4816",
+      "certificate_name": "AWS-LC FIPS",
+      "verified_on": "2026-04-20",
+      "build_flags": ["--features", "fips"],
+      "min_version": "1.6.0",
+      "platforms": ["linux-amd64", "linux-arm64"],
+      "startup_assertion_pattern": "default_fips_provider\\(\\)\\.install_default\\(\\)",
+      "known_gotchas": [
+        "GCC 14+ fails to build aws-lc-fips-sys; pin to GCC 13 or use Clang",
+        "macOS and Windows not FIPS targets — use Docker or Linux VM",
+        "Duplicate-crate trap: verify 'cargo tree -i aws-lc-sys' shows only FIPS variant",
+        "Do not also pull in the 'ring' crate — it is not FIPS-validated"
+      ]
+    },
+    {
+      "language": "rust",
+      "library": "rustls",
+      "repo": "https://github.com/rustls/rustls",
+      "role": "tls-stack",
+      "cmvp_certificate": "inherits from aws-lc-rs (#4816)",
+      "certificate_name": "AWS-LC FIPS via rustls 'fips' feature",
+      "verified_on": "2026-04-20",
+      "build_flags": ["--features", "fips"],
+      "startup_assertion_pattern": "assert!\\(config\\.fips\\(\\)\\)",
+      "known_gotchas": [
+        "Must install the FIPS crypto provider as process default before building a ClientConfig/ServerConfig",
+        "Assert config.fips() on every config you build"
+      ]
+    },
+    {
+      "language": "go",
+      "library": "native Go FIPS 140-3",
+      "repo": "https://go.dev",
+      "role": "primary-crypto-primitives",
+      "cmvp_certificate": "pending (CMVP submission in progress as of 2026-04)",
+      "certificate_name": "Go native FIPS 140-3 module",
+      "verified_on": "2026-04-20",
+      "min_version": "1.24.0",
+      "build_flags": [],
+      "runtime_flags": ["GODEBUG=fips140=on"],
+      "platforms": ["linux-amd64", "linux-arm64", "darwin-amd64", "darwin-arm64"],
+      "startup_assertion_pattern": "crypto/fips140\\.Enabled\\(\\)",
+      "known_gotchas": [
+        "Go 1.24 is the earliest version with native FIPS mode",
+        "Without GODEBUG=fips140=on, the binary runs in non-FIPS mode silently",
+        "Transitive dependencies may pull in golang.org/x/crypto with non-FIPS primitives — audit with 'go list -deps -m all'"
+      ]
+    },
+    {
+      "language": "go",
+      "library": "BoringCrypto",
+      "repo": "https://github.com/golang/go/tree/dev.boringcrypto",
+      "role": "primary-crypto-primitives-legacy",
+      "cmvp_certificate": "4407",
+      "certificate_name": "Google BoringCrypto",
+      "verified_on": "2026-04-20",
+      "min_version": "go1.20.5b7",
+      "build_flags": ["GOEXPERIMENT=boringcrypto"],
+      "platforms": ["linux-amd64"],
+      "startup_assertion_pattern": "boring\\.Enabled\\(\\)",
+      "known_gotchas": [
+        "BoringCrypto is a fork of Go, not a Go module — must use BoringCrypto toolchain",
+        "Falling behind mainline Go by a minor version or two is normal",
+        "For new projects on Go 1.24+, prefer native Go FIPS over BoringCrypto"
+      ]
+    },
+    {
+      "language": "python",
+      "library": "OpenSSL 3.0 FIPS provider (via system OpenSSL)",
+      "repo": "https://github.com/openssl/openssl",
+      "role": "primary-crypto-primitives",
+      "cmvp_certificate": "4282",
+      "certificate_name": "OpenSSL FIPS Provider 3.0",
+      "verified_on": "2026-04-20",
+      "build_flags": [],
+      "platforms": ["linux-amd64 (via RHEL 9 FIPS / Ubuntu Pro FIPS)"],
+      "startup_assertion_pattern": "hashlib\\.get_fips_mode\\(\\)",
+      "known_gotchas": [
+        "Python does not ship its own FIPS module — defers to system OpenSSL",
+        "Most macOS Python installs are not FIPS-capable; use Linux for FIPS",
+        "pycryptodome / pycrypto implement their own crypto — not FIPS-validated. Do not use in FIPS mode.",
+        "passlib with bcrypt/argon2/scrypt — all disallowed under FIPS. Use hashlib.pbkdf2_hmac with SHA-256.",
+        "Pre-compiled cryptography wheels on PyPI may bundle non-FIPS OpenSSL — prefer apt/dnf-installed system OpenSSL"
+      ],
+      "activation": "Requires OS-level FIPS mode: fips-mode-setup --enable (RHEL) or Ubuntu Pro FIPS subscription"
+    },
+    {
+      "language": "python",
+      "library": "cryptography",
+      "repo": "https://github.com/pyca/cryptography",
+      "role": "high-level-crypto",
+      "cmvp_certificate": "inherits from system OpenSSL (#4282)",
+      "certificate_name": "cryptography library backed by OpenSSL 3 FIPS",
+      "verified_on": "2026-04-20",
+      "build_flags": [],
+      "startup_assertion_pattern": "cryptography\\.hazmat\\.backends\\.default_backend\\(\\)",
+      "known_gotchas": [
+        "Verify the backend OpenSSL is the system FIPS one, not a bundled non-FIPS wheel",
+        "hazmat primitives include non-FIPS algorithms (ChaCha20, X25519) — policy must restrict usage, the library does not enforce"
+      ]
+    }
+  ]
+}

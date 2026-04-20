@@ -1,0 +1,116 @@
+NistFipsCompliance
+Copyright 2026 Rob Linton
+
+Licensed under the Apache License, Version 2.0 (the "License").
+
+===============================================================================
+THIRD-PARTY ATTRIBUTIONS
+===============================================================================
+
+This project redistributes content derived from the following public-domain
+sources. The derived works remain public domain in the jurisdiction of the
+original author (United States Government). Apache 2.0 applies only to the
+project's original authorship (schema, glue code, prose written by project
+contributors).
+
+-------------------------------------------------------------------------------
+1. NIST SP 800-53 Rev 5 Control Catalogue (OSCAL)
+-------------------------------------------------------------------------------
+
+Source:   https://github.com/usnistgov/OSCAL
+          https://csrc.nist.gov/Projects/risk-management/sp800-53-controls
+File(s):  skill/NistFipsCompliance/data/nist-800-53-rev5.json
+          skill/NistFipsCompliance/context/NistControlCatalogue.md (generated)
+Status:   Work of the U.S. Government; public domain in the United States per
+          17 U.S.C. §105.
+
+The OSCAL control catalogue is a work of the United States Government and
+is not subject to copyright in the US. The NIST OSCAL project publishes this
+data for public use.
+
+NIST does not endorse this project. The phrases "NIST", "SP 800-53", "FIPS",
+"FIPS 140-3", and related identifiers are used descriptively to refer to the
+public standards they name.
+
+-------------------------------------------------------------------------------
+2. FIPS Publications (180-4, 186-5, 197, 198-1, 202, 203, 204, 205, 140-3 IG)
+-------------------------------------------------------------------------------
+
+Source:   https://csrc.nist.gov/publications/fips
+Status:   Works of the U.S. Government; public domain in the United States.
+
+Algorithm names, status designations, and transition dates referenced in
+skill/NistFipsCompliance/context/FipsAlgorithms.md and
+skill/NistFipsCompliance/data/fips-algorithms.json are derived from these
+publications plus NIST SP 800-131A Rev 3 (Transitioning Cryptographic
+Algorithms and Key Lengths) and NIST SP 800-57 Part 1 Rev 5 (Key Management).
+
+-------------------------------------------------------------------------------
+3. Cryptographic Module Validation Program (CMVP) Validated Modules List
+-------------------------------------------------------------------------------
+
+Source:   https://csrc.nist.gov/projects/cryptographic-module-validation-program/validated-modules
+Status:   Work of the U.S. Government; public domain in the United States.
+
+CMVP certificate numbers referenced in
+skill/NistFipsCompliance/context/FipsLibraries.md and
+skill/NistFipsCompliance/data/fips-libraries.json are taken from the CMVP
+validated-modules list as of the build date recorded in the data file's
+metadata field.
+
+CMVP certificate numbers and module status can change. Verify current
+status at the CMVP URL above before relying on any cert claim in production.
+
+-------------------------------------------------------------------------------
+4. FedRAMP Rev 5 Baselines
+-------------------------------------------------------------------------------
+
+Source:   https://www.fedramp.gov/documents-templates/
+          https://github.com/fedramp-automation/fedramp-automation
+Status:   Works of the U.S. Government; public domain in the United States.
+
+"FedRAMP" is a registered service mark of the U.S. General Services
+Administration (GSA). It is used in this project descriptively to refer to
+the Federal Risk and Authorization Management Program. This project makes
+no claim to the mark.
+
+-------------------------------------------------------------------------------
+5. CMMC Assessment Guide (Levels 1 & 2)
+-------------------------------------------------------------------------------
+
+Source:   https://dodcio.defense.gov/CMMC/
+          https://dodcio.defense.gov/CMMC/Documentation/
+Status:   Works of the U.S. Government; public domain in the United States.
+
+"CMMC" (Cybersecurity Maturity Model Certification) is administered by the
+U.S. Department of Defense Chief Information Officer. References in this
+project are descriptive; no endorsement is implied.
+
+-------------------------------------------------------------------------------
+6. HIPAA Security Rule (45 CFR §164.302-318) Crosswalk
+-------------------------------------------------------------------------------
+
+Source:   https://www.hhs.gov/hipaa/for-professionals/security/index.html
+          https://www.hhs.gov/hipaa/for-professionals/security/guidance/
+Status:   Works of the U.S. Government; public domain in the United States.
+
+"HIPAA" references the Health Insurance Portability and Accountability Act
+and its implementing regulations. Crosswalk mappings to NIST SP 800-53 are
+derived from guidance published by HHS OCR.
+
+-------------------------------------------------------------------------------
+7. SOC 2 Trust Services Criteria (TSC 2017, revised 2022)
+-------------------------------------------------------------------------------
+
+Source:   AICPA Trust Services Criteria
+          https://www.aicpa-cima.com/resources/download/2017-trust-services-criteria
+Status:   © AICPA. Referenced in this project by public identifier only
+          (e.g., "CC6.1", "CC7.2"); the full text of the criteria is NOT
+          reproduced here.
+
+"SOC 2" is a service offered by AICPA-affiliated CPAs. This project refers
+to the TSC by public identifier only, for cross-mapping purposes. No text
+from the AICPA-copyrighted criteria is reproduced. Users needing the full
+TSC text should obtain it from AICPA.
+
+===============================================================================

@@ -1,0 +1,241 @@
+{
+  "$schema": "../../../tools/schemas/framework-crossmap.schema.json",
+  "source": {
+    "name": "Hand-curated cross-map (v0.1 stub — FedRAMP Moderate only for AC/AU/IA/SC)",
+    "urls": {
+      "fedramp_rev5_baselines": "https://www.fedramp.gov/documents-templates/",
+      "cmmc_l2_assessment_guide": "https://dodcio.defense.gov/CMMC/Documentation/",
+      "hipaa_ocr_crosswalk": "https://www.hhs.gov/hipaa/for-professionals/security/guidance/",
+      "soc2_tsc_2017": "AICPA Trust Services Criteria (referenced by identifier only)"
+    },
+    "last_reviewed": "2026-04-20"
+  },
+  "notice": "v0.1 stub — only FedRAMP Moderate mappings for AC/AU/IA/SC families are populated. CMMC L2, HIPAA, and SOC 2 columns are marked 'TODO' and will be populated in v0.2. Soc 2 TSC references are by public identifier only (e.g., 'CC6.1') to respect AICPA copyright; full criterion text is not reproduced.",
+  "scope_note": "This is a cross-reference, not legal advice. Individual assessors may apply different mappings. Always cross-check with your 3PAO / assessor's interpretation.",
+  "mappings": [
+    {
+      "control_id": "AC-2",
+      "title": "Account Management",
+      "fedramp_low": true,
+      "fedramp_moderate": true,
+      "fedramp_high": true,
+      "cmmc_l1": "TODO",
+      "cmmc_l2": "TODO",
+      "hipaa_sections": "TODO",
+      "soc2_tsc": "TODO",
+      "source": "FedRAMP Rev 5 Baseline"
+    },
+    {
+      "control_id": "AC-3",
+      "title": "Access Enforcement",
+      "fedramp_low": true,
+      "fedramp_moderate": true,
+      "fedramp_high": true,
+      "cmmc_l1": "TODO",
+      "cmmc_l2": "TODO",
+      "hipaa_sections": "TODO",
+      "soc2_tsc": "TODO",
+      "source": "FedRAMP Rev 5 Baseline"
+    },
+    {
+      "control_id": "AC-6",
+      "title": "Least Privilege",
+      "fedramp_low": false,
+      "fedramp_moderate": true,
+      "fedramp_high": true,
+      "cmmc_l1": "TODO",
+      "cmmc_l2": "TODO",
+      "hipaa_sections": "TODO",
+      "soc2_tsc": "TODO",
+      "source": "FedRAMP Rev 5 Baseline"
+    },
+    {
+      "control_id": "AC-7",
+      "title": "Unsuccessful Logon Attempts",
+      "fedramp_low": true,
+      "fedramp_moderate": true,
+      "fedramp_high": true,
+      "cmmc_l1": "TODO",
+      "cmmc_l2": "TODO",
+      "hipaa_sections": "TODO",
+      "soc2_tsc": "TODO",
+      "source": "FedRAMP Rev 5 Baseline"
+    },
+    {
+      "control_id": "AC-11",
+      "title": "Device Lock",
+      "fedramp_low": false,
+      "fedramp_moderate": true,
+      "fedramp_high": true,
+      "source": "FedRAMP Rev 5 Baseline"
+    },
+    {
+      "control_id": "AC-12",
+      "title": "Session Termination",
+      "fedramp_low": false,
+      "fedramp_moderate": true,
+      "fedramp_high": true,
+      "source": "FedRAMP Rev 5 Baseline"
+    },
+    {
+      "control_id": "AU-2",
+      "title": "Event Logging",
+      "fedramp_low": true,
+      "fedramp_moderate": true,
+      "fedramp_high": true,
+      "source": "FedRAMP Rev 5 Baseline"
+    },
+    {
+      "control_id": "AU-3",
+      "title": "Content of Audit Records",
+      "fedramp_low": true,
+      "fedramp_moderate": true,
+      "fedramp_high": true,
+      "source": "FedRAMP Rev 5 Baseline"
+    },
+    {
+      "control_id": "AU-4",
+      "title": "Audit Log Storage Capacity",
+      "fedramp_low": true,
+      "fedramp_moderate": true,
+      "fedramp_high": true,
+      "source": "FedRAMP Rev 5 Baseline"
+    },
+    {
+      "control_id": "AU-6",
+      "title": "Audit Record Review, Analysis, and Reporting",
+      "fedramp_low": true,
+      "fedramp_moderate": true,
+      "fedramp_high": true,
+      "source": "FedRAMP Rev 5 Baseline"
+    },
+    {
+      "control_id": "AU-9",
+      "title": "Protection of Audit Information",
+      "fedramp_low": true,
+      "fedramp_moderate": true,
+      "fedramp_high": true,
+      "source": "FedRAMP Rev 5 Baseline"
+    },
+    {
+      "control_id": "AU-11",
+      "title": "Audit Record Retention",
+      "fedramp_low": true,
+      "fedramp_moderate": true,
+      "fedramp_high": true,
+      "source": "FedRAMP Rev 5 Baseline"
+    },
+    {
+      "control_id": "AU-12",
+      "title": "Audit Record Generation",
+      "fedramp_low": true,
+      "fedramp_moderate": true,
+      "fedramp_high": true,
+      "source": "FedRAMP Rev 5 Baseline"
+    },
+    {
+      "control_id": "IA-2",
+      "title": "Identification and Authentication (organizational Users)",
+      "fedramp_low": true,
+      "fedramp_moderate": true,
+      "fedramp_high": true,
+      "source": "FedRAMP Rev 5 Baseline"
+    },
+    {
+      "control_id": "IA-2(1)",
+      "title": "Multi-factor Authentication to Privileged Accounts",
+      "fedramp_low": true,
+      "fedramp_moderate": true,
+      "fedramp_high": true,
+      "source": "FedRAMP Rev 5 Baseline"
+    },
+    {
+      "control_id": "IA-2(2)",
+      "title": "Multi-factor Authentication to Non-Privileged Accounts",
+      "fedramp_low": false,
+      "fedramp_moderate": true,
+      "fedramp_high": true,
+      "source": "FedRAMP Rev 5 Baseline"
+    },
+    {
+      "control_id": "IA-5",
+      "title": "Authenticator Management",
+      "fedramp_low": true,
+      "fedramp_moderate": true,
+      "fedramp_high": true,
+      "source": "FedRAMP Rev 5 Baseline"
+    },
+    {
+      "control_id": "IA-5(1)",
+      "title": "Password-Based Authentication",
+      "fedramp_low": true,
+      "fedramp_moderate": true,
+      "fedramp_high": true,
+      "source": "FedRAMP Rev 5 Baseline"
+    },
+    {
+      "control_id": "IA-7",
+      "title": "Cryptographic Module Authentication",
+      "fedramp_low": true,
+      "fedramp_moderate": true,
+      "fedramp_high": true,
+      "source": "FedRAMP Rev 5 Baseline"
+    },
+    {
+      "control_id": "SC-7",
+      "title": "Boundary Protection",
+      "fedramp_low": true,
+      "fedramp_moderate": true,
+      "fedramp_high": true,
+      "source": "FedRAMP Rev 5 Baseline"
+    },
+    {
+      "control_id": "SC-8",
+      "title": "Transmission Confidentiality and Integrity",
+      "fedramp_low": false,
+      "fedramp_moderate": true,
+      "fedramp_high": true,
+      "source": "FedRAMP Rev 5 Baseline"
+    },
+    {
+      "control_id": "SC-8(1)",
+      "title": "Cryptographic Protection",
+      "fedramp_low": false,
+      "fedramp_moderate": true,
+      "fedramp_high": true,
+      "source": "FedRAMP Rev 5 Baseline"
+    },
+    {
+      "control_id": "SC-12",
+      "title": "Cryptographic Key Establishment and Management",
+      "fedramp_low": true,
+      "fedramp_moderate": true,
+      "fedramp_high": true,
+      "source": "FedRAMP Rev 5 Baseline"
+    },
+    {
+      "control_id": "SC-13",
+      "title": "Cryptographic Protection",
+      "fedramp_low": true,
+      "fedramp_moderate": true,
+      "fedramp_high": true,
+      "source": "FedRAMP Rev 5 Baseline"
+    },
+    {
+      "control_id": "SC-28",
+      "title": "Protection of Information at Rest",
+      "fedramp_low": false,
+      "fedramp_moderate": true,
+      "fedramp_high": true,
+      "source": "FedRAMP Rev 5 Baseline"
+    },
+    {
+      "control_id": "SC-28(1)",
+      "title": "Cryptographic Protection",
+      "fedramp_low": false,
+      "fedramp_moderate": true,
+      "fedramp_high": true,
+      "source": "FedRAMP Rev 5 Baseline"
+    }
+  ]
+}

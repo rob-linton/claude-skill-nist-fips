@@ -1,0 +1,634 @@
+{
+  "$schema": "../../../tools/schemas/fips-algorithms.schema.json",
+  "source": {
+    "name": "Hand-curated from FIPS 140-3 IG and SP 800-131A Rev 3",
+    "urls": [
+      "https://csrc.nist.gov/projects/cryptographic-module-validation-program/fips-140-3-standards",
+      "https://csrc.nist.gov/pubs/sp/800/131/a/r3/final",
+      "https://csrc.nist.gov/pubs/sp/800/57/pt1/r5/final"
+    ],
+    "last_reviewed": "2026-04-20"
+  },
+  "notice": "Approved status applies at the standard level. Only a CMVP-certified module is FIPS-validated. Verify any specific module against the CMVP validated-modules list before relying on an approval claim.",
+  "algorithms": [
+    {
+      "name": "AES-128-GCM",
+      "family": "symmetric-aead",
+      "status": "APPROVED",
+      "fips_reference": "FIPS 197; SP 800-38D",
+      "min_key_bits": 128,
+      "detection_patterns": {
+        "rust": ["\\bAes128Gcm\\b", "\\baes_128_gcm\\b", "AES_128_GCM"],
+        "go": ["\\bcipher\\.NewGCM\\b.*\\baes\\.NewCipher\\b"],
+        "python": ["AESGCM\\s*\\(.*16\\s*\\)", "algorithms\\.AES128", "\"AES-GCM\".*128"],
+        "node": ["aes-128-gcm"],
+        "java": ["AES_128/GCM", "\"AES/GCM/NoPadding\""],
+        "csharp": ["AesGcm"],
+        "regex_fallback": ["\\baes[-_]?128[-_]?gcm\\b"]
+      },
+      "notes": "Preferred AEAD for new code. 128-bit key acceptable for most baselines; use 256 for CNSA 2.0."
+    },
+    {
+      "name": "AES-256-GCM",
+      "family": "symmetric-aead",
+      "status": "APPROVED",
+      "fips_reference": "FIPS 197; SP 800-38D",
+      "min_key_bits": 256,
+      "detection_patterns": {
+        "rust": ["\\bAes256Gcm\\b", "\\baes_256_gcm\\b", "AES_256_GCM"],
+        "go": ["\\bcipher\\.NewGCM\\b"],
+        "python": ["AESGCM\\s*\\(.*32\\s*\\)", "algorithms\\.AES256"],
+        "node": ["aes-256-gcm"],
+        "java": ["\"AES/GCM/NoPadding\""],
+        "regex_fallback": ["\\baes[-_]?256[-_]?gcm\\b"]
+      },
+      "notes": "Required for CNSA 2.0 and FedRAMP High at-rest encryption."
+    },
+    {
+      "name": "AES-128-CCM",
+      "family": "symmetric-aead",
+      "status": "APPROVED",
+      "fips_reference": "FIPS 197; SP 800-38C",
+      "detection_patterns": {
+        "regex_fallback": ["\\baes[-_]?128[-_]?ccm\\b"]
+      }
+    },
+    {
+      "name": "AES-256-CCM",
+      "family": "symmetric-aead",
+      "status": "APPROVED",
+      "fips_reference": "FIPS 197; SP 800-38C",
+      "detection_patterns": {
+        "regex_fallback": ["\\baes[-_]?256[-_]?ccm\\b"]
+      }
+    },
+    {
+      "name": "AES-128-CBC",
+      "family": "symmetric-block",
+      "status": "APPROVED",
+      "fips_reference": "FIPS 197; SP 800-38A",
+      "detection_patterns": {
+        "regex_fallback": ["\\baes[-_]?128[-_]?cbc\\b"]
+      },
+      "notes": "Unauthenticated — pair with HMAC-SHA-256 in encrypt-then-MAC construction. Subject to padding-oracle attacks if not carefully used."
+    },
+    {
+      "name": "AES-256-CBC",
+      "family": "symmetric-block",
+      "status": "APPROVED",
+      "fips_reference": "FIPS 197; SP 800-38A",
+      "detection_patterns": {
+        "regex_fallback": ["\\baes[-_]?256[-_]?cbc\\b"]
+      },
+      "notes": "Unauthenticated — pair with HMAC-SHA-384 or stronger."
+    },
+    {
+      "name": "AES-KW / AES-KWP",
+      "family": "key-wrap",
+      "status": "APPROVED",
+      "fips_reference": "FIPS 197; SP 800-38F",
+      "detection_patterns": {
+        "regex_fallback": ["\\baes[-_]?kwp?\\b", "AES Key Wrap"]
+      }
+    },
+    {
+      "name": "AES-XTS",
+      "family": "storage-encryption",
+      "status": "APPROVED",
+      "fips_reference": "FIPS 197; SP 800-38E",
+      "detection_patterns": {
+        "regex_fallback": ["\\baes[-_]?xts\\b"]
+      },
+      "notes": "For storage encryption only; not for general-purpose data."
+    },
+    {
+      "name": "ChaCha20-Poly1305",
+      "family": "symmetric-aead",
+      "status": "DISALLOWED",
+      "fips_reference": "not in FIPS 140-3 IG approved list",
+      "detection_patterns": {
+        "rust": ["\\bChaCha20Poly1305\\b", "\\bchacha20poly1305\\b", "\\bchacha20_poly1305\\b"],
+        "go": ["chacha20poly1305\\."],
+        "python": ["ChaCha20Poly1305", "ChaCha20"],
+        "node": ["chacha20-poly1305"],
+        "java": ["ChaCha20/Poly1305", "ChaCha20-Poly1305"],
+        "regex_fallback": ["\\bchacha20[-_]?poly1305\\b"]
+      },
+      "remediation_id": "replace-chacha-with-aes-gcm",
+      "notes": "Common in Rust/Go libraries. Replace with AES-256-GCM from a FIPS-validated module."
+    },
+    {
+      "name": "XChaCha20-Poly1305",
+      "family": "symmetric-aead",
+      "status": "DISALLOWED",
+      "fips_reference": "not in FIPS 140-3 IG approved list",
+      "detection_patterns": {
+        "regex_fallback": ["\\bxchacha20[-_]?poly1305\\b"]
+      },
+      "remediation_id": "replace-chacha-with-aes-gcm"
+    },
+    {
+      "name": "3DES / TDEA",
+      "family": "symmetric-block",
+      "status": "DISALLOWED",
+      "fips_reference": "SP 800-131A Rev 3",
+      "disallowed_after": "2023-12-31",
+      "detection_patterns": {
+        "rust": ["\\bTripleDES\\b", "\\b3des\\b", "\\bDes3\\b"],
+        "go": ["\\bdes\\.NewTripleDESCipher\\b"],
+        "python": ["DES3", "TripleDES", "algorithms\\.TripleDES"],
+        "java": ["\"DESede\"", "\"TripleDES\""],
+        "regex_fallback": ["\\b3[-_]?des\\b", "\\btriple[-_]?des\\b"]
+      },
+      "remediation_id": "replace-3des-with-aes",
+      "hardcoded_floor": true
+    },
+    {
+      "name": "DES",
+      "family": "symmetric-block",
+      "status": "DISALLOWED",
+      "fips_reference": "never approved in FIPS 140-3",
+      "detection_patterns": {
+        "rust": ["\\bDes::new\\b"],
+        "python": ["algorithms\\.DES"],
+        "java": ["\"DES\"(?!ede)"],
+        "regex_fallback": ["\\bdes[_-]?cbc\\b"]
+      },
+      "hardcoded_floor": true
+    },
+    {
+      "name": "RC4",
+      "family": "symmetric-stream",
+      "status": "DISALLOWED",
+      "fips_reference": "never approved",
+      "detection_patterns": {
+        "regex_fallback": ["\\brc4\\b", "\\barc4\\b"]
+      },
+      "hardcoded_floor": true
+    },
+    {
+      "name": "SHA-256",
+      "family": "hash",
+      "status": "APPROVED",
+      "fips_reference": "FIPS 180-4",
+      "detection_patterns": {
+        "regex_fallback": ["\\bsha[-_]?256\\b", "\\bSHA256\\b"]
+      }
+    },
+    {
+      "name": "SHA-384",
+      "family": "hash",
+      "status": "APPROVED",
+      "fips_reference": "FIPS 180-4",
+      "detection_patterns": {
+        "regex_fallback": ["\\bsha[-_]?384\\b"]
+      }
+    },
+    {
+      "name": "SHA-512",
+      "family": "hash",
+      "status": "APPROVED",
+      "fips_reference": "FIPS 180-4",
+      "detection_patterns": {
+        "regex_fallback": ["\\bsha[-_]?512\\b"]
+      }
+    },
+    {
+      "name": "SHA3-256",
+      "family": "hash",
+      "status": "APPROVED",
+      "fips_reference": "FIPS 202",
+      "detection_patterns": {
+        "regex_fallback": ["\\bsha3[-_]?256\\b", "\\bSHA3_256\\b"]
+      }
+    },
+    {
+      "name": "SHA3-384",
+      "family": "hash",
+      "status": "APPROVED",
+      "fips_reference": "FIPS 202",
+      "detection_patterns": {
+        "regex_fallback": ["\\bsha3[-_]?384\\b"]
+      }
+    },
+    {
+      "name": "SHA3-512",
+      "family": "hash",
+      "status": "APPROVED",
+      "fips_reference": "FIPS 202",
+      "detection_patterns": {
+        "regex_fallback": ["\\bsha3[-_]?512\\b"]
+      }
+    },
+    {
+      "name": "SHA-1 for signing",
+      "family": "hash",
+      "status": "DISALLOWED",
+      "fips_reference": "SP 800-131A Rev 3",
+      "disallowed_after": "2013-12-31",
+      "detection_patterns": {
+        "rust": ["\\bSha1::", "sha1::"],
+        "go": ["\\bsha1\\.New\\b", "crypto/sha1"],
+        "python": ["hashlib\\.sha1\\b", "SHA1\\.new"],
+        "java": ["\"SHA-1\"", "MessageDigest\\.getInstance\\(\"SHA-?1\""],
+        "regex_fallback": ["\\bsha[-_]?1\\b(?![-_]?for[-_]?legacy)"]
+      },
+      "remediation_id": "replace-sha1-with-sha256",
+      "hardcoded_floor": true,
+      "notes": "Flag all uses; differentiate legacy-verify from new-generation only via human review (AST disambiguation in v0.2+)."
+    },
+    {
+      "name": "MD5",
+      "family": "hash",
+      "status": "DISALLOWED",
+      "fips_reference": "never approved",
+      "detection_patterns": {
+        "rust": ["\\bMd5\\b", "\\bmd5::\\b"],
+        "go": ["\\bmd5\\.New\\b", "crypto/md5"],
+        "python": ["hashlib\\.md5\\b", "MD5\\.new"],
+        "java": ["\"MD5\"", "MessageDigest\\.getInstance\\(\"MD5\""],
+        "node": ["createHash\\(['\"]md5['\"]\\)"],
+        "regex_fallback": ["\\bmd5\\b"]
+      },
+      "remediation_id": "replace-md5-with-sha256",
+      "hardcoded_floor": true,
+      "suppression_hint": "If md5 is used for non-security integrity checks (e.g., cache-busting ETag), add inline suppression with reason=\"non-security integrity\"; but prefer BLAKE2 or xxHash for that."
+    },
+    {
+      "name": "MD4",
+      "family": "hash",
+      "status": "DISALLOWED",
+      "fips_reference": "never approved",
+      "detection_patterns": {
+        "regex_fallback": ["\\bmd4\\b"]
+      },
+      "hardcoded_floor": true
+    },
+    {
+      "name": "HMAC-SHA-256",
+      "family": "mac",
+      "status": "APPROVED",
+      "fips_reference": "FIPS 198-1; FIPS 180-4",
+      "detection_patterns": {
+        "regex_fallback": ["\\bhmac[-_]?sha[-_]?256\\b"]
+      }
+    },
+    {
+      "name": "HMAC-SHA-384",
+      "family": "mac",
+      "status": "APPROVED",
+      "fips_reference": "FIPS 198-1; FIPS 180-4",
+      "detection_patterns": {
+        "regex_fallback": ["\\bhmac[-_]?sha[-_]?384\\b"]
+      }
+    },
+    {
+      "name": "HMAC-SHA-512",
+      "family": "mac",
+      "status": "APPROVED",
+      "fips_reference": "FIPS 198-1; FIPS 180-4",
+      "detection_patterns": {
+        "regex_fallback": ["\\bhmac[-_]?sha[-_]?512\\b"]
+      }
+    },
+    {
+      "name": "HMAC-MD5",
+      "family": "mac",
+      "status": "DISALLOWED",
+      "fips_reference": "MD5 never approved",
+      "detection_patterns": {
+        "regex_fallback": ["\\bhmac[-_]?md5\\b"]
+      },
+      "hardcoded_floor": true
+    },
+    {
+      "name": "HMAC-SHA-1",
+      "family": "mac",
+      "status": "LEGACY_USE_ONLY",
+      "fips_reference": "SP 800-131A Rev 3",
+      "detection_patterns": {
+        "regex_fallback": ["\\bhmac[-_]?sha[-_]?1\\b"]
+      },
+      "notes": "Acceptable only for verification of pre-existing material; never for new HMAC generation."
+    },
+    {
+      "name": "RSA-2048-PSS",
+      "family": "asymmetric-signature",
+      "status": "APPROVED",
+      "fips_reference": "FIPS 186-5",
+      "min_key_bits": 2048,
+      "detection_patterns": {
+        "regex_fallback": ["\\brsa[-_]?pss\\b", "RSASSA-PSS"]
+      }
+    },
+    {
+      "name": "RSA-2048-PKCS1v15",
+      "family": "asymmetric-signature",
+      "status": "APPROVED",
+      "fips_reference": "FIPS 186-5",
+      "min_key_bits": 2048,
+      "notes": "Approved but PSS is preferred for new designs.",
+      "detection_patterns": {
+        "regex_fallback": ["\\brsa[-_]?pkcs1[-_]?v?1?[-_]?5?\\b"]
+      }
+    },
+    {
+      "name": "ECDSA P-256",
+      "family": "asymmetric-signature",
+      "status": "APPROVED",
+      "fips_reference": "FIPS 186-5",
+      "detection_patterns": {
+        "regex_fallback": ["\\bP-?256\\b.*ECDSA", "ECDSA.*P-?256", "secp256r1", "prime256v1"]
+      }
+    },
+    {
+      "name": "ECDSA P-384",
+      "family": "asymmetric-signature",
+      "status": "APPROVED",
+      "fips_reference": "FIPS 186-5",
+      "detection_patterns": {
+        "regex_fallback": ["\\bP-?384\\b", "secp384r1"]
+      }
+    },
+    {
+      "name": "ECDSA P-521",
+      "family": "asymmetric-signature",
+      "status": "APPROVED",
+      "fips_reference": "FIPS 186-5",
+      "detection_patterns": {
+        "regex_fallback": ["\\bP-?521\\b", "secp521r1"]
+      }
+    },
+    {
+      "name": "Ed25519",
+      "family": "asymmetric-signature",
+      "status": "CONDITIONALLY_APPROVED",
+      "fips_reference": "FIPS 186-5 (Feb 2023)",
+      "condition": "Approved at standard level since FIPS 186-5. Verify your specific CMVP module's cert lists Ed25519 signature generation. Most modules shipped before 2024 do not.",
+      "detection_patterns": {
+        "rust": ["ed25519_dalek", "ed25519-compact", "\\bEd25519\\b"],
+        "go": ["ed25519\\."],
+        "python": ["Ed25519PrivateKey", "Ed25519PublicKey"],
+        "regex_fallback": ["\\bed25519\\b"]
+      },
+      "notes": "Do not assume Ed25519 is FIPS-covered by your module. Cross-check cert."
+    },
+    {
+      "name": "Ed448",
+      "family": "asymmetric-signature",
+      "status": "CONDITIONALLY_APPROVED",
+      "fips_reference": "FIPS 186-5 (Feb 2023)",
+      "condition": "Same as Ed25519 — verify module cert.",
+      "detection_patterns": {
+        "regex_fallback": ["\\bed448\\b"]
+      }
+    },
+    {
+      "name": "DSA (FIPS 186-4)",
+      "family": "asymmetric-signature",
+      "status": "DISALLOWED",
+      "fips_reference": "SP 800-131A Rev 3",
+      "disallowed_after": "2023-12-31",
+      "detection_patterns": {
+        "regex_fallback": ["\\bDSA(?!-?Cert)\\b"]
+      },
+      "hardcoded_floor": true
+    },
+    {
+      "name": "RSA-1024",
+      "family": "asymmetric",
+      "status": "DISALLOWED",
+      "fips_reference": "SP 800-131A Rev 3",
+      "disallowed_after": "2013-12-31",
+      "hardcoded_floor": true,
+      "detection_patterns": {
+        "regex_fallback": ["RSA\\s*\\(\\s*1024\\s*\\)", "rsa.*1024"]
+      }
+    },
+    {
+      "name": "RSA-OAEP-2048",
+      "family": "key-establishment",
+      "status": "APPROVED",
+      "fips_reference": "FIPS 186-5; SP 800-56B Rev 2",
+      "min_key_bits": 2048,
+      "detection_patterns": {
+        "regex_fallback": ["\\brsa[-_]?oaep\\b"]
+      }
+    },
+    {
+      "name": "ECDH P-256",
+      "family": "key-establishment",
+      "status": "APPROVED",
+      "fips_reference": "SP 800-56A Rev 3",
+      "detection_patterns": {
+        "regex_fallback": ["\\becdh\\b.*P-?256", "P-?256.*ECDH"]
+      }
+    },
+    {
+      "name": "ECDH P-384",
+      "family": "key-establishment",
+      "status": "APPROVED",
+      "fips_reference": "SP 800-56A Rev 3",
+      "detection_patterns": {
+        "regex_fallback": ["\\becdh\\b.*P-?384"]
+      }
+    },
+    {
+      "name": "X25519 (standalone)",
+      "family": "key-establishment",
+      "status": "CONDITIONALLY_APPROVED",
+      "fips_reference": "not yet approved standalone in 140-3 IG D.F/D.G",
+      "condition": "Approved only when used as part of a hybrid KEM with an approved classical scheme.",
+      "detection_patterns": {
+        "rust": ["x25519_dalek", "\\bX25519\\b"],
+        "go": ["curve25519\\.X25519"],
+        "python": ["X25519PrivateKey"],
+        "regex_fallback": ["\\bx25519\\b"]
+      }
+    },
+    {
+      "name": "ML-KEM-768",
+      "family": "pqc-kem",
+      "status": "APPROVED",
+      "fips_reference": "FIPS 203",
+      "detection_patterns": {
+        "regex_fallback": ["\\bml[-_]?kem[-_]?768\\b", "MLKEM-768"]
+      },
+      "notes": "CMVP validation rolling out through 2026. Verify your module lists the variant."
+    },
+    {
+      "name": "ML-DSA-65",
+      "family": "pqc-signature",
+      "status": "APPROVED",
+      "fips_reference": "FIPS 204",
+      "detection_patterns": {
+        "regex_fallback": ["\\bml[-_]?dsa[-_]?65\\b"]
+      }
+    },
+    {
+      "name": "Hybrid X25519+ML-KEM-768",
+      "family": "pqc-hybrid-kem",
+      "status": "APPROVED",
+      "fips_reference": "FIPS 203 + SP 800-56C Rev 2",
+      "detection_patterns": {
+        "regex_fallback": ["X25519MLKEM768", "X25519\\+ML-KEM-768"]
+      },
+      "notes": "Recommended transition posture for TLS 1.3 key exchange."
+    },
+    {
+      "name": "Kyber (pre-ML-KEM)",
+      "family": "pqc-kem",
+      "status": "DISALLOWED",
+      "fips_reference": "superseded by FIPS 203 ML-KEM",
+      "detection_patterns": {
+        "regex_fallback": ["\\bkyber(?!\\s*-?\\s*to\\s*-?\\s*ml-?kem)\\b"]
+      },
+      "notes": "Pre-standardisation Kyber is not wire-compatible with ML-KEM. Use ML-KEM."
+    },
+    {
+      "name": "PBKDF2-HMAC-SHA-256",
+      "family": "kdf",
+      "status": "APPROVED",
+      "fips_reference": "SP 800-132",
+      "min_iterations_nist": 1000,
+      "min_iterations_owasp_2023": 600000,
+      "detection_patterns": {
+        "regex_fallback": ["\\bpbkdf2\\b"]
+      }
+    },
+    {
+      "name": "HKDF-SHA-256",
+      "family": "kdf",
+      "status": "APPROVED",
+      "fips_reference": "SP 800-56C Rev 2",
+      "detection_patterns": {
+        "regex_fallback": ["\\bhkdf\\b"]
+      }
+    },
+    {
+      "name": "Argon2",
+      "family": "kdf",
+      "status": "DISALLOWED",
+      "fips_reference": "not in FIPS approved-KDF list",
+      "detection_patterns": {
+        "rust": ["\\bargon2\\b"],
+        "python": ["argon2"],
+        "java": ["Argon2"],
+        "regex_fallback": ["\\bargon2(id|i|d)?\\b"]
+      },
+      "remediation_id": "replace-argon2-with-pbkdf2",
+      "notes": "Excellent security properties but not FIPS-approved. In FIPS mode, use PBKDF2-HMAC-SHA-256 with very high iteration count; note FIPS baselines accept this trade-off."
+    },
+    {
+      "name": "Scrypt",
+      "family": "kdf",
+      "status": "DISALLOWED",
+      "fips_reference": "not in FIPS approved-KDF list",
+      "detection_patterns": {
+        "regex_fallback": ["\\bscrypt\\b"]
+      },
+      "remediation_id": "replace-scrypt-with-pbkdf2"
+    },
+    {
+      "name": "bcrypt",
+      "family": "kdf",
+      "status": "DISALLOWED",
+      "fips_reference": "not in FIPS approved-KDF list",
+      "detection_patterns": {
+        "regex_fallback": ["\\bbcrypt\\b"]
+      },
+      "remediation_id": "replace-bcrypt-with-pbkdf2"
+    },
+    {
+      "name": "CTR_DRBG",
+      "family": "rbg",
+      "status": "APPROVED",
+      "fips_reference": "SP 800-90A Rev 1"
+    },
+    {
+      "name": "Hash_DRBG",
+      "family": "rbg",
+      "status": "APPROVED",
+      "fips_reference": "SP 800-90A Rev 1"
+    },
+    {
+      "name": "HMAC_DRBG",
+      "family": "rbg",
+      "status": "APPROVED",
+      "fips_reference": "SP 800-90A Rev 1"
+    },
+    {
+      "name": "TLS_AES_128_GCM_SHA256",
+      "family": "tls-cipher-suite",
+      "tls_version": "1.3",
+      "status": "APPROVED",
+      "fips_reference": "SP 800-52 Rev 2",
+      "detection_patterns": {
+        "regex_fallback": ["TLS_AES_128_GCM_SHA256"]
+      }
+    },
+    {
+      "name": "TLS_AES_256_GCM_SHA384",
+      "family": "tls-cipher-suite",
+      "tls_version": "1.3",
+      "status": "APPROVED",
+      "fips_reference": "SP 800-52 Rev 2",
+      "detection_patterns": {
+        "regex_fallback": ["TLS_AES_256_GCM_SHA384"]
+      }
+    },
+    {
+      "name": "TLS_CHACHA20_POLY1305_SHA256",
+      "family": "tls-cipher-suite",
+      "tls_version": "1.3",
+      "status": "DISALLOWED",
+      "fips_reference": "ChaCha20 not in FIPS IG",
+      "detection_patterns": {
+        "regex_fallback": ["TLS_CHACHA20_POLY1305_SHA256"]
+      },
+      "remediation_id": "remove-chacha-tls-suite"
+    },
+    {
+      "name": "TLS 1.0",
+      "family": "tls-protocol-version",
+      "status": "DISALLOWED",
+      "fips_reference": "SP 800-52 Rev 2",
+      "disallowed_after": "2024-01-01",
+      "hardcoded_floor": true,
+      "detection_patterns": {
+        "regex_fallback": ["\\bTLSv?1\\.0\\b", "\\bTLS10\\b"]
+      }
+    },
+    {
+      "name": "TLS 1.1",
+      "family": "tls-protocol-version",
+      "status": "DISALLOWED",
+      "fips_reference": "SP 800-52 Rev 2",
+      "disallowed_after": "2024-01-01",
+      "hardcoded_floor": true,
+      "detection_patterns": {
+        "regex_fallback": ["\\bTLSv?1\\.1\\b", "\\bTLS11\\b"]
+      }
+    },
+    {
+      "name": "SSLv3",
+      "family": "tls-protocol-version",
+      "status": "DISALLOWED",
+      "fips_reference": "long obsolete",
+      "hardcoded_floor": true,
+      "detection_patterns": {
+        "regex_fallback": ["\\bSSLv3\\b", "\\bSSL3\\b"]
+      }
+    }
+  ],
+  "remediations": {
+    "replace-chacha-with-aes-gcm": "Replace ChaCha20/XChaCha20 with AES-256-GCM from a FIPS-validated cryptographic module (aws-lc-rs for Rust; Go 1.24+ FIPS for Go; OpenSSL 3 FIPS provider for Python/Node/C).",
+    "replace-3des-with-aes": "Replace 3DES / TDEA with AES-128-GCM or AES-256-GCM. 3DES has been disallowed since 2023-12-31 per SP 800-131A Rev 3.",
+    "replace-sha1-with-sha256": "Replace SHA-1 with SHA-256 or SHA-384 for any new generation of signatures, MACs, or key derivation. SHA-1 is only acceptable for legacy verification.",
+    "replace-md5-with-sha256": "Replace MD5 with SHA-256. MD5 has never been FIPS-approved. If the usage is non-security integrity (cache-busting, etc.), consider BLAKE2 or xxHash.",
+    "replace-argon2-with-pbkdf2": "Replace Argon2 with PBKDF2-HMAC-SHA-256 using ≥ 600,000 iterations. Argon2 has excellent memory-hardness properties but is not in the FIPS-approved KDF list.",
+    "replace-scrypt-with-pbkdf2": "Same as replace-argon2-with-pbkdf2.",
+    "replace-bcrypt-with-pbkdf2": "Same as replace-argon2-with-pbkdf2.",
+    "remove-chacha-tls-suite": "Remove TLS_CHACHA20_POLY1305_SHA256 from the allowed cipher-suite list; retain TLS_AES_128_GCM_SHA256 and TLS_AES_256_GCM_SHA384."
+  }
+}
