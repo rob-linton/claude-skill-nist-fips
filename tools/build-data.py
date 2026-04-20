@@ -197,6 +197,18 @@ def build_catalog(oscal: dict, families: list[str]) -> tuple[dict, list[str]]:
     if missing:
         raise SystemExit(f"families not found in OSCAL: {missing}")
 
+    # Derive built_at deterministically from the OSCAL source metadata.
+    # The build is a pure function of OSCAL input → output files, so using
+    # the upstream last-modified timestamp yields byte-identical output for
+    # every rebuild against the same revision. This is required for the CI
+    # reproducibility check (`git diff --exit-code` after a rebuild). The
+    # fall-through to wall-clock time is unreachable in practice (OSCAL
+    # metadata always carries last-modified) and is kept only as a
+    # defensive guard for malformed inputs during development.
+    built_at = cat["metadata"].get("last-modified") or dt.datetime.now(
+        dt.timezone.utc
+    ).isoformat()
+
     out_families = []
     all_findings: list[str] = []
     for grp in included:
@@ -235,7 +247,7 @@ def build_catalog(oscal: dict, families: list[str]) -> tuple[dict, list[str]]:
                 "last_modified": cat["metadata"].get("last-modified"),
             },
             "build": {
-                "built_at": dt.datetime.now(dt.timezone.utc).isoformat(),
+                "built_at": built_at,
                 "tool": "tools/build-data.py",
                 "schema_version": 1,
                 "families_included": families,

@@ -32,6 +32,16 @@ a new framework cross-map), not only by code changes.
   `.claude-plugin/plugin.json`. Previously it failed with
   "Unrecognized keys" and "repository: expected string, received
   object" validation errors.
+- `tools/build-data.py` now produces byte-identical output on every
+  rebuild against the same OSCAL revision. Previously the `built_at`
+  field (propagated into `data/nist-800-53-rev5.json`,
+  `data/_meta.json`, and the `Built at:` header of
+  `context/NistControlCatalogue.md`) was set to wall-clock time, so
+  every rebuild drifted by a few seconds and the CI reproducibility
+  check (`build-data.py && git diff --exit-code`) failed on every
+  push. `built_at` is now derived from OSCAL's
+  `catalog.metadata.last-modified` — the build is a pure function of
+  its input, which is the honest semantics the field always intended.
 
 ### Added
 - Repository scaffold: `LICENSE` (Apache 2.0), `NOTICE`, `README.md` with

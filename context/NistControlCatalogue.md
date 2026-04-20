@@ -9,7 +9,7 @@
 
 **Catalog version**: 5.2.0
 **OSCAL last-modified**: 2025-08-26T14:33:16.00000-00:00
-**Built at**: 2026-04-20T01:54:34.919153+00:00
+**Built at**: 2025-08-26T14:33:16.00000-00:00
 **Families included (v0.1 scope)**: AC, AU, IA, SC
 
 The remaining 16 families (AT, CA, CM, CP, IR, MA, MP, PE, PL, PM, PS, PT,
