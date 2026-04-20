@@ -12,9 +12,12 @@ a new framework cross-map), not only by code changes.
 ### Changed
 - CI actions bumped to Node 24-compatible versions (GitHub deprecates
   Node 20 action runners on 2026-09-16, forces Node 24 default on
-  2026-06-02). `actions/checkout` 4.2.2 → 4.3.1; `actions/setup-python`
-  5.6.0 → 6.2.0. Both remain SHA-pinned per CONTRIBUTING.md
-  supply-chain policy.
+  2026-06-02). `actions/checkout` 4.2.2 → 6.0.2 (v5.0.0 was the
+  Node-24 cut; v4.3.1 still uses Node 20 despite being released
+  alongside v5.0.1); `actions/setup-python` 5.6.0 → 6.2.0. Both remain
+  SHA-pinned per CONTRIBUTING.md supply-chain policy. The v4 → v6
+  checkout bump does not affect our usage — we set
+  `persist-credentials: false`, which sidesteps the main v6 change.
 - `.claude-plugin/plugin.json` aligned with the Claude Code plugin
   installer schema. The installer rejects unknown keys, so the following
   were removed from the manifest: `$schema`, `skill`, `features`,
