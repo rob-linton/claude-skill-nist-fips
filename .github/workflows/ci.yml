@@ -43,7 +43,7 @@ jobs:
         # rule from CONTRIBUTING.md.
         run: |
           python3 tools/build-data.py
-          git diff --exit-code skill/NistFipsCompliance/data/ skill/NistFipsCompliance/context/NistControlCatalogue.md
+          git diff --exit-code data/ context/NistControlCatalogue.md
 
   lint-markdown:
     name: markdown lint
@@ -65,9 +65,9 @@ jobs:
           markdownlint-cli2 \
             'README.md' 'MAINTENANCE.md' 'CONTRIBUTING.md' \
             'SECURITY.md' 'CODE_OF_CONDUCT.md' 'CHANGELOG.md' \
-            'skill/NistFipsCompliance/SKILL.md' \
-            'skill/NistFipsCompliance/context/*.md' \
-            'skill/NistFipsCompliance/workflows/*.md' \
-            'skill/NistFipsCompliance/commands/*.md' \
-            'skill/NistFipsCompliance/agents/*.md' \
+            'SKILL.md' \
+            'context/*.md' \
+            'workflows/*.md' \
+            'commands/*.md' \
+            'agents/*.md' \
             || echo "markdown lint returned warnings — not blocking v0.1"

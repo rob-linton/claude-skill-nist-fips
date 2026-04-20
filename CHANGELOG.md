@@ -13,7 +13,7 @@ a new framework cross-map), not only by code changes.
 - Repository scaffold: `LICENSE` (Apache 2.0), `NOTICE`, `README.md` with
   LEGAL NOTICE, `SECURITY.md`, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`,
   `MAINTENANCE.md`.
-- `skill/NistFipsCompliance/SKILL.md` routing hub with non-endorsement
+- `SKILL.md` routing hub with non-endorsement
   scope boundary.
 - `context/FipsAlgorithms.md`, `context/FipsLibraries.md`,
   `context/EvidenceModel.md`, `context/ThreatModel.md`.

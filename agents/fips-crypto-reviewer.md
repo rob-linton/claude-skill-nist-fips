@@ -45,13 +45,13 @@ my module validated?"), refuse the question and point them to the
 
 Load these files into context before scanning:
 
-1. `skill/NistFipsCompliance/context/FipsAlgorithms.md` — approved /
+1. `context/FipsAlgorithms.md` — approved /
    disallowed lists with citations.
-2. `skill/NistFipsCompliance/context/FipsLibraries.md` — per-language
+2. `context/FipsLibraries.md` — per-language
    FIPS-validated libraries and startup assertions.
-3. `skill/NistFipsCompliance/data/fips-algorithms.json` — machine-readable
+3. `data/fips-algorithms.json` — machine-readable
    detection patterns.
-4. `skill/NistFipsCompliance/data/fips-libraries.json` — machine-readable
+4. `data/fips-libraries.json` — machine-readable
    library + startup-assertion data.
 
 ## Workflow

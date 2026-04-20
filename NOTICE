@@ -19,8 +19,8 @@ contributors).
 
 Source:   https://github.com/usnistgov/OSCAL
           https://csrc.nist.gov/Projects/risk-management/sp800-53-controls
-File(s):  skill/NistFipsCompliance/data/nist-800-53-rev5.json
-          skill/NistFipsCompliance/context/NistControlCatalogue.md (generated)
+File(s):  data/nist-800-53-rev5.json
+          context/NistControlCatalogue.md (generated)
 Status:   Work of the U.S. Government; public domain in the United States per
           17 U.S.C. §105.
 
@@ -40,8 +40,8 @@ Source:   https://csrc.nist.gov/publications/fips
 Status:   Works of the U.S. Government; public domain in the United States.
 
 Algorithm names, status designations, and transition dates referenced in
-skill/NistFipsCompliance/context/FipsAlgorithms.md and
-skill/NistFipsCompliance/data/fips-algorithms.json are derived from these
+context/FipsAlgorithms.md and
+data/fips-algorithms.json are derived from these
 publications plus NIST SP 800-131A Rev 3 (Transitioning Cryptographic
 Algorithms and Key Lengths) and NIST SP 800-57 Part 1 Rev 5 (Key Management).
 
@@ -53,8 +53,8 @@ Source:   https://csrc.nist.gov/projects/cryptographic-module-validation-program
 Status:   Work of the U.S. Government; public domain in the United States.
 
 CMVP certificate numbers referenced in
-skill/NistFipsCompliance/context/FipsLibraries.md and
-skill/NistFipsCompliance/data/fips-libraries.json are taken from the CMVP
+context/FipsLibraries.md and
+data/fips-libraries.json are taken from the CMVP
 validated-modules list as of the build date recorded in the data file's
 metadata field.
 

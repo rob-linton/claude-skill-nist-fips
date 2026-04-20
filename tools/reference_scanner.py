@@ -25,7 +25,7 @@ import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-DATA_DIR = REPO_ROOT / "skill" / "NistFipsCompliance" / "data"
+DATA_DIR = REPO_ROOT / "data"
 
 DEFAULT_EXCLUDES = [
     "docs/**",

@@ -106,14 +106,12 @@ auto-triggers.
 ```
 .
 ├── .claude-plugin/plugin.json          # skill manifest
-├── skill/NistFipsCompliance/           # the skill itself
-│   ├── SKILL.md                        # routing hub
-│   ├── context/                        # reference material
-│   ├── workflows/                      # step-by-step procedures
-│   ├── templates/                      # starter artefacts
-│   ├── commands/                       # slash commands
-│   ├── agents/                         # subagent definitions
-│   └── data/                           # machine-readable catalogues
+├── SKILL.md                            # routing hub
+├── context/                            # reference material
+├── workflows/                          # step-by-step procedures
+├── commands/                           # slash commands
+├── agents/                             # subagent definitions
+├── data/                               # machine-readable catalogues
 ├── tools/                              # build, validate, test tooling
 │   ├── build-data.py                   # regenerate data/*.json from sources
 │   ├── validate-skill.py               # disclaimer + watermark + denylist CI

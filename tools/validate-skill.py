@@ -5,10 +5,10 @@ validate-skill.py — CI-enforced invariants for NistFipsCompliance.
 This script implements the non-bypassable protections that substitute for
 a formal legal review (per the project's release-gate policy):
 
-  1. SKILL.md, README.md, and every file under skill/NistFipsCompliance/
+  1. SKILL.md, README.md, and every file under the skill directory
      must contain a LEGAL NOTICE (or clearly delegate to the README's one).
   2. Endorsement-implying language (regex denylist) is rejected in any
-     prose file under skill/NistFipsCompliance/ and the top-level
+     prose file under the skill directory and the top-level
      README/CHANGELOG/NOTICE/MAINTENANCE.
   3. Every data/*.json file parses and has the required top-level
      'source' and 'notice' fields.
@@ -29,7 +29,7 @@ import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-SKILL_ROOT = REPO_ROOT / "skill" / "NistFipsCompliance"
+SKILL_ROOT = REPO_ROOT
 DATA_DIR = SKILL_ROOT / "data"
 CONTEXT_DIR = SKILL_ROOT / "context"
 
@@ -216,8 +216,10 @@ def check_plugin_manifest() -> list[str]:
     if m.get("license") != "Apache-2.0":
         errors.append("plugin-manifest-license-not-apache-2.0")
     skill = m.get("skill", {})
-    if skill.get("path") != "skill/NistFipsCompliance":
-        errors.append("plugin-manifest-skill-path-wrong")
+    if skill.get("path") != ".":
+        errors.append(
+            f"plugin-manifest-skill-path-wrong: expected '.' got {skill.get('path')!r}"
+        )
     return errors
 
 

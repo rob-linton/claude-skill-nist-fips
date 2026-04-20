@@ -8,7 +8,7 @@ from pathlib import Path
 import pytest
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-SKILL_ROOT = REPO_ROOT / "skill" / "NistFipsCompliance"
+SKILL_ROOT = REPO_ROOT
 DATA_DIR = SKILL_ROOT / "data"
 CONTEXT_DIR = SKILL_ROOT / "context"
 FIXTURES_DIR = REPO_ROOT / "tools" / "fixtures"

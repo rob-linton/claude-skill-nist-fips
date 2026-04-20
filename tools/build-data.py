@@ -11,9 +11,9 @@ Usage:
     python3 tools/build-data.py [--refresh-oscal] [--families AC,AU,IA,SC]
 
 Outputs:
-    skill/NistFipsCompliance/data/nist-800-53-rev5.json
-    skill/NistFipsCompliance/data/_meta.json
-    skill/NistFipsCompliance/context/NistControlCatalogue.md
+    data/nist-800-53-rev5.json
+    data/_meta.json
+    context/NistControlCatalogue.md
 
 Rules (CI-enforced):
     1. Prose in NistControlCatalogue.md is derived from OSCAL discussion +
@@ -39,7 +39,7 @@ from pathlib import Path
 # --------------------------------------------------------------------------
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-SKILL_ROOT = REPO_ROOT / "skill" / "NistFipsCompliance"
+SKILL_ROOT = REPO_ROOT
 DATA_DIR = SKILL_ROOT / "data"
 CONTEXT_DIR = SKILL_ROOT / "context"
 OSCAL_CACHE = REPO_ROOT / "tools" / ".oscal-cache" / "nist-800-53-rev5-catalog.json"

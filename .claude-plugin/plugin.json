@@ -33,7 +33,7 @@
     "cmvp"
   ],
   "skill": {
-    "path": "skill/NistFipsCompliance",
+    "path": ".",
     "entry": "SKILL.md",
     "context_files": [
       "context/NistControlCatalogue.md",
