@@ -53,7 +53,7 @@ Three install paths:
 
 ```bash
 cd ~/.claude/skills  # or your project's .claude/skills/ directory
-git clone https://github.com/rlinton/claude-skill-nist-fips NistFipsCompliance
+git clone https://github.com/rob-linton/claude-skill-nist-fips NistFipsCompliance
 cd NistFipsCompliance
 # Optional: verify the release signature if installing from a tag
 ./tools/verify-release.sh
@@ -74,7 +74,7 @@ marketplace is not assumed. Community marketplaces
 ### 3. GitHub Action (CI-only, no Claude dependency)
 
 ```yaml
-- uses: rlinton/claude-skill-nist-fips/action@v0
+- uses: rob-linton/claude-skill-nist-fips/action@v0
   with:
     framework: fedramp-moderate
     mode: audit    # audit | scan | matrix

@@ -6,15 +6,15 @@
   "author": {
     "name": "Rob Linton",
     "email": "rob.linton@senetas.com",
-    "url": "https://github.com/rlinton"
+    "url": "https://github.com/rob-linton"
   },
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/rlinton/claude-skill-nist-fips"
+    "url": "https://github.com/rob-linton/claude-skill-nist-fips"
   },
-  "homepage": "https://github.com/rlinton/claude-skill-nist-fips",
-  "bugs": "https://github.com/rlinton/claude-skill-nist-fips/issues",
+  "homepage": "https://github.com/rob-linton/claude-skill-nist-fips",
+  "bugs": "https://github.com/rob-linton/claude-skill-nist-fips/issues",
   "keywords": [
     "nist",
     "800-53",
