@@ -9,6 +9,30 @@ a new framework cross-map), not only by code changes.
 
 ## [Unreleased]
 
+### Changed
+- `.claude-plugin/plugin.json` aligned with the Claude Code plugin
+  installer schema. The installer rejects unknown keys, so the following
+  were removed from the manifest: `$schema`, `skill`, `features`,
+  `requirements`, `legal_notice`, `release_verification`, `keywords`.
+  `repository` and `bugs` are now URL strings rather than objects.
+- `tools/validate-skill.py` relaxed its `plugin.json` invariants to
+  match. The `skill` and `legal_notice` keys are no longer required,
+  and the `skill.path == "."` check is removed. Legal-notice prose
+  enforcement continues unchanged via `check_legal_notice_presence()`
+  against `README.md`, `SKILL.md`, and other prose files — that was
+  always the functional check; the manifest field duplicated it.
+- `README.md` installation section rewritten. Path #2 now documents
+  installing as a first-class Claude Code plugin via a local
+  marketplace (`claude plugin marketplace add` +
+  `claude plugin install`), including the `marketplace.json` shape
+  and the symlink pattern for out-of-tree skill directories.
+
+### Fixed
+- `claude plugin install` now succeeds against this repository's
+  `.claude-plugin/plugin.json`. Previously it failed with
+  "Unrecognized keys" and "repository: expected string, received
+  object" validation errors.
+
 ### Added
 - Repository scaffold: `LICENSE` (Apache 2.0), `NOTICE`, `README.md` with
   LEGAL NOTICE, `SECURITY.md`, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`,

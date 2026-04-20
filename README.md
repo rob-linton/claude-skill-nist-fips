@@ -63,12 +63,77 @@ Claude Code picks the skill up the next time it starts. Trigger it by asking
 questions about NIST 800-53, FIPS 140-3, FedRAMP, CMMC, HIPAA, or SOC 2
 compliance, or by running one of the `/` commands listed above.
 
-### 2. Claude Code plugin manifest
+### 2. Claude Code plugin (recommended — registers slash commands)
 
-If your Claude Code install supports plugin-manifest discovery, point it at
-this repo's `.claude-plugin/plugin.json`. Submission to the Anthropic
-marketplace is not assumed. Community marketplaces
-([`buildwithclaude.com`](https://buildwithclaude.com/),
+Install as a proper Claude Code plugin so `/fips-audit`, `/nist-scan`, and the
+`fips-crypto-reviewer` subagent register as first-class harness entities.
+Dropping the files into `.claude/skills/` alone **does not** register the
+slash commands — the harness only reads slash commands from `.claude/commands/`
+or from installed plugin caches.
+
+**Via a local marketplace** (works for vendored installs inside a repo):
+
+1. Place the skill at `<repo>/.claude/skills/NistFipsCompliance/` (or anywhere
+   you like — the path just has to be reachable by a marketplace entry).
+
+2. Create `<repo>/.claude/plugin-marketplace/.claude-plugin/marketplace.json`:
+
+   ```json
+   {
+     "name": "my-local",
+     "owner": { "name": "You", "email": "you@example.com" },
+     "metadata": { "version": "1.0.0", "description": "Local plugins" },
+     "plugins": [
+       {
+         "name": "nist-fips-compliance",
+         "version": "0.1.0",
+         "description": "NIST SP 800-53 + FIPS 140-3 compliance skill",
+         "source": "./plugins/nist-fips-compliance"
+       }
+     ]
+   }
+   ```
+
+   Plugin `source` paths are resolved relative to the marketplace root (the
+   directory **containing** `.claude-plugin/`) and **cannot** traverse upward
+   with `..`. If the skill lives outside the marketplace directory, create a
+   symlink inside the marketplace:
+
+   ```bash
+   mkdir -p <repo>/.claude/plugin-marketplace/plugins
+   ln -s ../../skills/NistFipsCompliance \
+     <repo>/.claude/plugin-marketplace/plugins/nist-fips-compliance
+   ```
+
+3. Validate, register, and install:
+
+   ```bash
+   claude plugin validate <repo>/.claude/plugin-marketplace
+   claude plugin marketplace add <repo>/.claude/plugin-marketplace
+   claude plugin install nist-fips-compliance@my-local
+   ```
+
+4. **Restart Claude Code** — slash commands and subagents from newly
+   installed plugins are only registered on harness startup. After restart,
+   tab-completing `/fips-` will reveal `/fips-audit`.
+
+**Plugin manifest schema requirements.** Claude Code's installer validates
+`.claude-plugin/plugin.json` with a strict schema: `name`, `description`,
+`author`, plus optional `version`, `license`, `repository` (string URL —
+**not** an object), `homepage`, `keywords`. Additional keys (`$schema`,
+`skill`, `features`, `requirements`, etc.) are rejected. The manifest
+shipped in this repo is kept minimal to stay compatible; richer metadata
+lives in the marketplace.json entry instead.
+
+**Via direct GitHub install** (if your Claude Code version supports it):
+
+```bash
+claude plugin marketplace add github:rob-linton/claude-skill-nist-fips
+claude plugin install nist-fips-compliance@claude-skill-nist-fips
+```
+
+Submission to the Anthropic marketplace is not assumed. Community
+marketplaces ([`buildwithclaude.com`](https://buildwithclaude.com/),
 [awesomeclaude.ai](https://awesomeclaude.ai/)) are best-effort channels.
 
 ### 3. GitHub Action (CI-only, no Claude dependency)

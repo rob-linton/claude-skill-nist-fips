@@ -14,7 +14,12 @@ a formal legal review (per the project's release-gate policy):
      'source' and 'notice' fields.
   4. NistControlCatalogue.md is structurally consistent with
      data/nist-800-53-rev5.json (same families, same control IDs).
-  5. plugin.json parses and declares the correct skill path.
+  5. plugin.json parses and satisfies the Claude Code plugin installer
+     schema (name, version, license=Apache-2.0). The previous `skill`
+     and `legal_notice` keys were dropped: the installer rejects them
+     as unrecognized, the `skill` block was documentary only (Claude
+     Code discovers files by convention), and legal-notice prose is
+     already enforced by check #1 against README.md/SKILL.md.
 
 Exits non-zero on any violation. Run from repo root:
 
@@ -209,17 +214,12 @@ def check_plugin_manifest() -> list[str]:
     except json.JSONDecodeError as e:
         errors.append(f"plugin-manifest-invalid-json: {e}")
         return errors
-    required = ["name", "version", "license", "skill", "legal_notice"]
+    required = ["name", "version", "license"]
     for k in required:
         if k not in m:
             errors.append(f"plugin-manifest-missing-key: {k}")
     if m.get("license") != "Apache-2.0":
         errors.append("plugin-manifest-license-not-apache-2.0")
-    skill = m.get("skill", {})
-    if skill.get("path") != ".":
-        errors.append(
-            f"plugin-manifest-skill-path-wrong: expected '.' got {skill.get('path')!r}"
-        )
     return errors
 
 
